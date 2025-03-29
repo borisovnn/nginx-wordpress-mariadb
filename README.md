@@ -1,2 +1,2 @@
 # nginx-wordpress-mariadb
-nginx-wordpress-mariadb-helm
+just helm for k8s deploy
