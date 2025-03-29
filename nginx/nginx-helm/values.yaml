@@ -1,0 +1,8 @@
+namespace: nginx
+service:
+  type: ClusterIP
+  port: 8080
+replica: 1
+image:
+  repository: billya84/docker-nginx-vts
+  tag: 1.27.4
