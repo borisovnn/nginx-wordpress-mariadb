@@ -1,12 +1,11 @@
-
-# Deployment for MariaDB
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: mariadb
   namespace: {{ .Values.namespace }}
 spec:
   replicas: {{ .Values.replicas }}
+  serviceName: "mariadb"
   selector:
     matchLabels:
       app: mariadb
@@ -41,5 +40,14 @@ spec:
                 secretKeyRef:
                   name: mariadb-secret
                   key: mysql_password
-
-
+          volumeMounts:
+            - name: datadir
+              mountPath: /var/lib/mysql/
+  volumeClaimTemplates:
+  - metadata:
+      name: datadir
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 500Mi
